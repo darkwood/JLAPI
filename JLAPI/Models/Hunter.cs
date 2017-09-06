@@ -1,6 +1,6 @@
 ﻿using JLAPI.Models.Base;
 
-namespace JLAPI.ModelsModels
+namespace JLAPI.Models
 {
     public class Hunter : EntityBase
     {
