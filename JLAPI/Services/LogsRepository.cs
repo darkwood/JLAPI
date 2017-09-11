@@ -17,7 +17,8 @@ namespace JLAPI.Services
         {
             _items = new List<LogEntry>
                      {
-                         new LogEntry{ID = 1, HuntId = 1}
+                         new LogEntry{ID = 1, HuntId = 1},
+                         new LogEntry{ID = 2, HuntId = 1}
                      };
         }
 
