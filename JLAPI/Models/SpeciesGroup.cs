@@ -2,9 +2,8 @@
 
 namespace JLAPI.Models
 {
-    public class SpeciesGroup
+    public class SpeciesGroup : EntityBase
     {
-        public int ID { get; set; }
         public string Name { get; set; }
     }
 }
