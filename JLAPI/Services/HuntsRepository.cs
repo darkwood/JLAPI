@@ -9,13 +9,19 @@ using JLAPI.Models.Base;
 
 namespace JLAPI.Services
 {
-    public class ItemsRepository : IRepository<Hunt>
+    public class HuntsRepository : IRepository<Hunt>
     {
         List<Hunt> _items;
 
-        public ItemsRepository()
+        public HuntsRepository()
         {
-            _items = new List<Hunt>();
+            _items = new List<Hunt>
+                     {
+                         new Hunt { ID = 1, Location = "sted"},
+                         new Hunt { ID = 2, Location = "sted2"},
+                         new Hunt { ID = 3, Location = "sted3"},
+                     };
+            
         }
 
         public bool DoesItemExist(int id)

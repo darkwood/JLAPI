@@ -15,16 +15,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace JLAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class HuntsController : EntityControllerBase
+    public class LogEntriesController : EntityControllerBase
     {
         [HttpGet]
         public IActionResult List()
         {
-            return Ok(DB.HuntsRepository.All);
+            return Ok(DB.LogsRepository.All);
         }
         
         [HttpPost]
-        public IActionResult Create([FromBody] Hunt item)
+        public IActionResult Create([FromBody] LogEntry item)
         {
             try
             {
@@ -32,15 +32,15 @@ namespace JLAPI.Controllers
                 {
                     return BadRequest(ErrorCode.TodoItemNameAndNotesRequired.ToString());
                 }
-                bool itemExists = DB.HuntsRepository.DoesItemExist(item.ID);
+                bool itemExists = DB.LogsRepository.DoesItemExist(item.ID);
                 if (itemExists)
                 {
                     return StatusCode(StatusCodes.Status409Conflict, ErrorCode.TodoItemIDInUse.ToString());
                 }
-                item.ID = DB.HuntsRepository.All.Max(r => r.ID) + 1;
+                item.ID = DB.LogsRepository.All.Max(r => r.ID) + 1;
                 item.Created = DateTime.Now;
                 item.UserId = "CurrentLoggedInUserId";
-                DB.HuntsRepository.Insert(item);
+                DB.LogsRepository.Insert(item);
             }
             catch (Exception)
             {
@@ -50,7 +50,7 @@ namespace JLAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult Edit([FromBody] Hunt item)
+        public IActionResult Edit([FromBody] LogEntry item)
         {
             try
             {
@@ -58,14 +58,14 @@ namespace JLAPI.Controllers
                 {
                     return BadRequest(ErrorCode.TodoItemNameAndNotesRequired.ToString());
                 }
-                var existingItem = DB.HuntsRepository.Find(item.ID);
+                var existingItem = DB.LogsRepository.Find(item.ID);
                 if (existingItem == null)
                 {
                     return NotFound(ErrorCode.RecordNotFound.ToString());
                 }
 
                 item.Changed = DateTime.Now;
-                DB.HuntsRepository.Update(item);
+                DB.LogsRepository.Update(item);
             }
             catch (Exception)
             {
@@ -79,12 +79,12 @@ namespace JLAPI.Controllers
         {
             try
             {
-                var item = DB.HuntsRepository.Find(id);
+                var item = DB.LogsRepository.Find(id);
                 if (item == null)
                 {
                     return NotFound(ErrorCode.RecordNotFound.ToString());
                 }
-                DB.HuntsRepository.Delete(id);
+                DB.LogsRepository.Delete(id);
             }
             catch (Exception)
             {
